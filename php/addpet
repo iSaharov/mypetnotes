@@ -1,0 +1,15 @@
+<?php
+include_once("connect.php");
+if (isset($_POST['pet-name'])) $petName = $_POST['pet-name']; else $petName = 0;    //Проверяем дошел ли POST-запрос. 
+if (isset($_POST['pet-age'])) $petAge = $_POST['pet-age']; else $petAge = 0;    //Одновременно с этим создаём переменные и присваиваем им соответствующие значения из POST-запроса.
+if (isset($_POST['pet-gender'])) $petGender = $_POST['pet-gender']; else $petGender = 0;    //для удобства понимания формам в html-документе были даны соответствующие значения.
+if ($petGender == 'xy') $petGender = 'мужской';  //Проверка пола питомца, где xy - мужской, а xx - женский
+elseif ($petGender == 'xx') $petGender = 'женский';
+else $petGender = 'не определился'; //select передаст одно из выбранных значений, но вдруг...
+
+if ($petName == 0 && $petAge == 0) {
+    printf("Питомец ещё не добавлен!");
+} else {
+    print_r("Имя питомца: {$petName}<br/> Возраст питомца: {$petAge}<br/> Пол питомца: {$petGender}");
+    $mysqli->query("INSERT INTO PetData(PetAge, PetName, PetGender) VALUES ('{$petAge}', '{$petName}', '{$petGender}')");
+}

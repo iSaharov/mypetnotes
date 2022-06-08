@@ -1,0 +1,18 @@
+//Делать проверку через php или написать простой скрипт на добавление этих таблиц в БД?
+//Скорее всего, если я прикручу юзеров на приложение, придётся добавлять отдельный атрибут(столбец) для привязки к id юзера
+    use mypetnotes;
+    CREATE TABLE IF NOT EXISTS PetData
+    (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        PetAge INT, 
+        PetName VARCHAR(20) NOT NULL,
+        PetGender VARCHAR(20) NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS PetNotes
+    (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        PetNameID INT,
+        NoteDate DATETIME, 
+        PetNote TEXT,
+        FOREIGN KEY (PetNameID) REFERENCES PetData (id) ON DELETE CASCADE ON UPDATE CASCADE
+    );
